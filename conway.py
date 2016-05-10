@@ -171,7 +171,6 @@ iterations = 124
 seed = openBoard('golSeed.txt')
 conway = padBoard(50, 50, seed)
 
-#Iterate on key press.
 for _ in range(0, iterations):
     conway = nextIteration(conway)
 
