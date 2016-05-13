@@ -8,4 +8,8 @@ For example:
 or:
 ![](out2.png)
 
-This is pretty basic and code is a bit messy. Not more than an hour and a bit of work.
+##TODO
+- More shapes
+- Prettier Outputs
+- Animated GIFS
+- More cellular automaton? That's a big one!
