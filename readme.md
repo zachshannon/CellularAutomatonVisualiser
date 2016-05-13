@@ -5,4 +5,7 @@ Produces pretty pictures from Conway's Game of Life, after a certain number of g
 For example:
 ![](out.png)
 
+or:
+![](out2.png)
+
 This is pretty basic and code is a bit messy. Not more than an hour and a bit of work.
