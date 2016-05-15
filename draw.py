@@ -18,8 +18,8 @@ def image_from_binary_cell(world, cell):
     cellMap = cell.load()
 
     #Create a white image.
-    img = Image.new('RGB', (len(world) * cell.size[0],
-                                        len(world[0]) * cell.size[1]), "white")
+    img = Image.new('RGB', (len(world[0]) * cell.size[0],
+                                        len(world) * cell.size[1]), "white")
     pixmap = img.load() #Create the pixel maps
 
     curRow = 0
@@ -39,8 +39,8 @@ def image_from_binary_random(world, cellsize, colourScheme):
     """Get image for a 2 dimensional binary array. """
 
     #Create a white image.
-    img = Image.new('RGB', (len(world) * cellsize,
-                                        len(world[0]) * cellsize), "white")
+    img = Image.new('RGB', (len(world[0]) * cellsize,
+                                        len(world) * cellsize), "white")
     pixmap = img.load() #Create the pixel maps
 
     curRow = 0
@@ -49,7 +49,7 @@ def image_from_binary_random(world, cellsize, colourScheme):
     for i, sublist in enumerate(world):
         for j, element in enumerate(sublist):
             if (element):
-                
+
                 colour = get_random_element(colourScheme)
 
                 #Add to the map.
@@ -59,9 +59,12 @@ def image_from_binary_random(world, cellsize, colourScheme):
 
     return img
 
-def print_2d(world):
-    """Print out a 2d list."""
+def print_2d(world, alive, dead):
+    """Print out a 2d list with the specified alive and dead characters."""
     for sublist in world:
         for element in sublist:
-            print(element, end='')
+            if(element):
+                print(alive, end='')
+            else:
+                print(dead, end='')
         print(""); #Newline

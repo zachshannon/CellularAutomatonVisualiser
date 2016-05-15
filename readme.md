@@ -8,6 +8,8 @@ For example:
 or:
 ![](out2.png)
 
+(These images were all generated using test.py)
+
 ##TODO
 - More shapes
 - Prettier Outputs

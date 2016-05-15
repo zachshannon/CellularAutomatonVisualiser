@@ -57,13 +57,6 @@ def pad_board(rows, cols, board):
 
     return newBoard
 
-def is_alive(cell):
-    """Return true if cell is alive."""
-    return(True if cell != False else False)
-def is_dead(cell):
-    """Return false if cell is dead."""
-    return(not(is_alive(cell)))
-
 def is_in_bounds(i, j, world):
     """Check if an index is out of bounds of the board."""
     if (i < 0 or j < 0 or i+1 > len(world) or j+1 > len(world[i])):
@@ -71,45 +64,15 @@ def is_in_bounds(i, j, world):
     else:
         return True
 
-def get_neighbours(i, j, world):
-    """Get a list of all neighbours of a cell."""
+def num_neighbours(i, j, world):
+    """Get number of neighbours of a cell."""
     neighbours = []
 
-    #Look up
-    if(is_in_bounds(i-1, j, world)):
-        neighbours.append(world[i-1][j])
-    #Look up left
-    if(is_in_bounds(i-1, j-1, world)):
-        neighbours.append(world[i-1][j-1])
-    #Look up right
-    if(is_in_bounds(i-1, j+1, world)):
-        neighbours.append(world[i-1][j+1])
-    #Look down
-    if(is_in_bounds(i+1, j, world)):
-        neighbours.append(world[i+1][j])
-    #Look down left
-    if(is_in_bounds(i+1, j-1, world)):
-        neighbours.append(world[i+1][j-1])
-    #Look down right
-    if(is_in_bounds(i+1, j+1, world)):
-        neighbours.append(world[i+1][j+1])
-    #Look left
-    if(is_in_bounds(i, j-1, world)):
-        neighbours.append(world[i][j-1])
-    #Look right
-    if(is_in_bounds(i, j+1, world)):
-        neighbours.append(world[i][j+1])
-
-    return neighbours
-
-#Find how many alive neighbours an element has.
-def num_neighbours(i, j, world):
-    """Count how many alive neighbours an element has."""
-    n = 0
-    for cell in get_neighbours(i, j, world):
-        if is_alive(cell):
-            n = n + 1
-    return n
+    for i1 in range(i-1, i+2):
+        for j1 in range(j-1, j+2):
+            if(is_in_bounds(i1, j1, world) and world[i1][j1] and not(i == i1 and j == j1)):
+                neighbours.append(world[i1][j1])
+    return len(neighbours)
 
 #Runs a cell to its next iteration
 def iterate_cell(i, j, world):
@@ -117,23 +80,26 @@ def iterate_cell(i, j, world):
     n = num_neighbours(i, j, world)
     cell = world[i][j]
 
-    if(n < 2 and is_alive(cell)):
+    if(n < 2 and cell):
         return False
-    if(n < 4 and is_alive(cell)):
+    elif(n < 4 and cell):
         return True
-    if(n > 3 and is_alive(cell)):
+    elif(n > 4 and cell):
         return False
-    if(n == 3 and is_dead(cell)):
+    elif(n == 3):
         return True
-
-    return cell
+    else:
+        return False
 
 def next_iteration(world):
     """Run a game of life board to its next iteration."""
-    newWorld = world
-    for i, sublist in enumerate(world):
-        for j, element in enumerate(sublist):
-            newWorld[i][j] = iterate_cell(i, j, world)
+    #Build a new board.
+    newWorld = []
+    for i in range(0, len(world)):
+        row = []
+        for j in range(0, len(world[0])):
+            row.append(iterate_cell(i, j, world))
+        newWorld.append(row)
     return newWorld
 
 def get_board_after(iterations, board):
