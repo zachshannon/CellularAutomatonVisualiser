@@ -1,8 +1,6 @@
-#Tools for making pretty representations of grids of things.
+#A few functions for making pretty representations of grids of things.
 #Zachary Shannon - 05/2016
 
-#I'm running this on Ubuntu 14.04 Server.
-#If this import doesn't work, well, good luck!
 from PIL import Image
 import random
 
@@ -36,7 +34,8 @@ def image_from_binary_cell(world, cell):
     return img
 
 def image_from_binary_random(world, cellsize, colourScheme):
-    """Get image for a 2 dimensional binary array. """
+    """Get image for a 2 dimensional binary array. Each cell will be represented
+    by a random RGB colour from the provided 'colourScheme'"""
 
     #Create a white image.
     img = Image.new('RGB', (len(world[0]) * cellsize,

@@ -8,10 +8,6 @@ For example:
 or:
 ![](out2.png)
 
-(These images were all generated using test.py)
+(These images were both generated using test.py)
 
-##TODO
-- More shapes
-- Prettier Outputs
-- Animated GIFS
-- More cellular automaton? That's a big one!
+Tested with Python 3 and PIL on a machine running Ubuntu 14.04.4 LTS.

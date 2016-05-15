@@ -1,9 +1,15 @@
 #Conway's Game of Life Implementation
 #Zachary Shannon - 05/2016
 
+#This a very simple implementation using 2d arrays.
+
+#It is heinously slow. There are a number of ways this could be made faster,
+#and some very clever people have some excellent algorithms for this.
+
+#This was ~ an hour worth of work and I was aiming for tidy code, however.
+
 import math
 
-#TODO Needs a rewrite.
 def open_board(file, aliveChar):
     """Reads in a board from a file. You MUST have a linebreak at the end of
     each line you want considered, so you must have a linebreak at the end of
@@ -68,8 +74,10 @@ def num_neighbours(i, j, world):
     """Get number of neighbours of a cell."""
     neighbours = []
 
+    #Check up, down, left, right, down left....
     for i1 in range(i-1, i+2):
         for j1 in range(j-1, j+2):
+            #We must explicitly exclude i, j.
             if(is_in_bounds(i1, j1, world) and world[i1][j1] and not(i == i1 and j == j1)):
                 neighbours.append(world[i1][j1])
     return len(neighbours)
@@ -80,6 +88,8 @@ def iterate_cell(i, j, world):
     n = num_neighbours(i, j, world)
     cell = world[i][j]
 
+    #The rules for Conway's Game of Life
+    #From: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
     if(n < 2 and cell):
         return False
     elif(n < 4 and cell):
@@ -93,7 +103,6 @@ def iterate_cell(i, j, world):
 
 def next_iteration(world):
     """Run a game of life board to its next iteration."""
-    #Build a new board.
     newWorld = []
     for i in range(0, len(world)):
         row = []
